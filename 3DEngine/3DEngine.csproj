@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <RootNamespace>_3DEngine</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\3DEngine.Core\3DEngine.Core.csproj" />
+    <ProjectReference Include="..\3DEngine.Renderer\3DEngine.Renderer.csproj" />
+  </ItemGroup>
+
+</Project>
