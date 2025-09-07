@@ -25,6 +25,7 @@ namespace _3DEngine.Renderer
         };
 
         private VertexArray screen;
+        private Shader screenShader;
 
         private GameWindow window { get; }
         private Camera camera { get; set; }
@@ -40,6 +41,7 @@ namespace _3DEngine.Renderer
             window.RenderFrame += OnRender;
 
             screen = new VertexArray(new VertexBuffer(screenVertices), new IndexBuffer(indices));
+            screenShader = new Shader("Shaders\\screen.vert", "Shaders\\screen.frag");
         }
 
         private void OnLoad()
