@@ -1,4 +1,5 @@
-﻿using _3DEngine.Renderer.Buffers;
+﻿using _3DEngine.Core.Mathematics;
+using _3DEngine.Renderer.Buffers;
 
 namespace _3DEngine.Renderer
 {
@@ -6,8 +7,12 @@ namespace _3DEngine.Renderer
     {
         public FrameBuffer FrameBuffer { get; }
 
-        public void SetCamera(Camera camera);
+        void ClearColor(Color4 color);
 
-        public Camera GetCamera();
+        void Clear();
+
+        void SetCamera(Camera camera);
+
+        Camera GetCamera();
     }
 }
