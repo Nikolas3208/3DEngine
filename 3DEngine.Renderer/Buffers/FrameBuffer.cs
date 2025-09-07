@@ -325,6 +325,14 @@ namespace _3DEngine.Renderer.Buffers
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
         }
 
+        public void BindTexture(FramebufferAttachment attachment, TextureUnit unit)
+        {
+            var texture = textures[attachment].Item2;
+
+            GL.ActiveTexture(unit);
+            GL.BindTexture(TextureTarget.Texture2D, texture);
+        }
+
         /// <summary>
         /// Прочитать пиксель
         /// </summary>

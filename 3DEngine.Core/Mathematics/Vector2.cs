@@ -8,6 +8,26 @@ namespace _3DEngine.Core.Mathematics
     public struct Vector2
     {
         /// <summary>
+        /// Все координаты равны единице
+        /// </summary>
+        public static Vector2 One => new Vector2(1, 1);
+
+        /// <summary>
+        /// Все координаты равны нулю
+        /// </summary>
+        public static Vector2 Zero => new Vector2(0, 0);
+
+        /// <summary>
+        /// Координата по горизонтали единица все остальные ноль
+        /// </summary>
+        public static Vector2 UnitX => new Vector2(1, 0);
+
+        /// <summary>
+        /// Координата по вертикале единица все остальные ноль
+        /// </summary>
+        public static Vector2 UnitY => new Vector2(0, 1);
+
+        /// <summary>
         /// Размер вектора в байтах
         /// </summary>
         public static int Size => Marshal.SizeOf(typeof(Vector2));
@@ -15,12 +35,16 @@ namespace _3DEngine.Core.Mathematics
         /// <summary>
         /// Координата вектора по горизонтали
         /// </summary>
-        public float X { get; }
+        public float X { get; set; }
 
         /// <summary>
         /// Координата вектора по вертикале
         /// </summary>
-        public float Y { get; }
+        public float Y { get; set; }
+
+        public float Length => MathF.Sqrt((X * X) + (Y * Y));
+
+        public float QuadraticLength => (X * X) + (Y * Y);
 
 
         /// <summary>
@@ -45,25 +69,24 @@ namespace _3DEngine.Core.Mathematics
             Y = y;
         }
 
-        /// <summary>
-        /// Все координаты равны единице
-        /// </summary>
-        public static Vector2 One = new Vector2(1, 1);
+        public static Vector2 Normalize(Vector2 vector)
+        {
+            float scale = 1f / vector.Length;
+            float x = vector.X * scale;
+            float y = vector.Y * scale;
 
-        /// <summary>
-        /// Все координаты равны нулю
-        /// </summary>
-        public static Vector2 Zero = new Vector2(0, 0);
+            return new Vector2(x, y);
+        }
 
-        /// <summary>
-        /// Координата по горизонтали единица все остальные ноль
-        /// </summary>
-        public static Vector2 UnitX = new Vector2(1, 0);
+        public static float Cross(Vector2 a, Vector2 b)
+        {
+            return (a.X * b.Y) - (a.Y * b.X);
+        }
 
-        /// <summary>
-        /// Координата по вертикале единица все остальные ноль
-        /// </summary>
-        public static Vector2 UnitY = new Vector2(0, 1);
+        public static float Dot(Vector2 a, Vector2 b)
+        {
+            return (a.X * b.X) + (a.Y * b.Y);
+        }
 
         /// <summary>
         /// Сложение двух векторов

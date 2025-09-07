@@ -8,6 +8,31 @@ namespace _3DEngine.Core.Mathematics
     public struct Vector3
     {
         /// <summary>
+        /// Все координаты равны единице
+        /// </summary>
+        public static Vector3 One => new Vector3(1, 1, 1);
+
+        /// <summary>
+        /// Все координаты равны нулю
+        /// </summary>
+        public static Vector3 Zero => new Vector3(0, 0, 0);
+
+        /// <summary>
+        /// Координата по горизонтали единица все остальные ноль
+        /// </summary>
+        public static Vector3 UnitX => new Vector3(1, 0, 0);
+
+        /// <summary>
+        /// Координата по вертикале единица все остальные ноль
+        /// </summary>
+        public static Vector3 UnitY => new Vector3(0, 1, 0);
+
+        /// <summary>
+        /// Координата по глубине единица все остальные ноль
+        /// </summary>
+        public static Vector3 UnitZ => new Vector3(0, 0, 1);
+
+        /// <summary>
         /// Размер вектора в байтах
         /// </summary>
         public static int Size => Marshal.SizeOf(typeof(Vector3));
@@ -15,17 +40,21 @@ namespace _3DEngine.Core.Mathematics
         /// <summary>
         /// Координата вектора по горизонтали
         /// </summary>
-        public float X { get; }
+        public float X { get; set; }
 
         /// <summary>
         /// Координата вектора по вертикале
         /// </summary>
-        public float Y { get; }
+        public float Y { get; set; }
 
         /// <summary>
         /// Координата вектора по глубине
         /// </summary>
-        public float Z { get; }
+        public float Z { get; set; }
+
+        public float Length => MathF.Sqrt((X * X) + (Y * Y) + (Z * Z));
+
+        public float QuadraticLength => (X * X) + (Y * Y) + (Z * Z);
 
         /// <summary>
         /// Все координаты вектра будут равны value
@@ -51,30 +80,31 @@ namespace _3DEngine.Core.Mathematics
             Z = z;
         }
 
-        /// <summary>
-        /// Все координаты равны единице
-        /// </summary>
-        public static Vector3 One = new Vector3(1, 1, 1);
+        public static Vector3 Normalize(Vector3 vector)
+        {
+            float scale = 1f / vector.Length;
+            float x = vector.X * scale;
+            float y = vector.Y * scale;
+            float z = vector.Z * scale;
 
-        /// <summary>
-        /// Все координаты равны нулю
-        /// </summary>
-        public static Vector3 Zero = new Vector3(0, 0, 0);
+            return new Vector3(x, y, z);
+        }
 
-        /// <summary>
-        /// Координата по горизонтали единица все остальные ноль
-        /// </summary>
-        public static Vector3 UnitX = new Vector3(1, 0, 0);
+        public static Vector3 Cross(Vector3 a, Vector3 b)
+        {
+            Vector3 result = new Vector3();
 
-        /// <summary>
-        /// Координата по вертикале единица все остальные ноль
-        /// </summary>
-        public static Vector3 UnitY = new Vector3(0, 1, 0);
+            result.X = (a.Y * b.Z) - (a.Z * b.Y);
+            result.Y = (a.Z * b.X) - (a.X * b.Z);
+            result.Z = (a.X * b.Y) - (a.Y * b.X);
 
-        /// <summary>
-        /// Координата по глубине единица все остальные ноль
-        /// </summary>
-        public static Vector3 UnitZ = new Vector3(0, 0, 1);
+            return result;
+        }
+
+        public static float Dot(Vector3 a, Vector3 b)
+        {
+            return (a.X * b.X) + (a.Y * b.Y) + (a.Z * b.Z);
+        }
 
         /// <summary>
         /// Сложение двух векторов
