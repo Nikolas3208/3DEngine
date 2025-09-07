@@ -17,32 +17,30 @@ namespace _3DEngine.Renderer
         /// <summary>
         /// Словарь для хранения локаций униформов по их именам.
         /// </summary>
-        private Dictionary<string, int> uniformLocations;
+        private Dictionary<string, int> uniformLocations = new();
 
         /// <summary>
-        /// Конструктор класса Shader. Загружает и компилирует шейдеры, а затем связывает их в программу.
+        /// Конструктор класса Shader. Компилирует шейдеры, а затем связывает их в программу.
         /// </summary>
-        /// <param name="vertPath">Путь к файлу вершинного шейдера.</param>
-        /// <param name="fragPath">Путь к файлу фрагментного шейдера.</param>
+        /// <param name="vertPath">Код вершинного шейдера.</param>
+        /// <param name="fragPath">Код фрагментного шейдера.</param>
         /// <param name="geomPath">Путь к файлу геометрического шейдера (опционально).</param>
-        public Shader(string vertPath, string fragPath, string geomPath = "")
+        public Shader(string vertSource, string fragSource, string geomPath = "")
         {
             int Handle = GL.CreateProgram();
 
-            // Загрузка и компиляция вершинного шейдера
-            string shaderSource = File.ReadAllText(vertPath);
-            int shaderVert = CreateShader(ShaderType.VertexShader, shaderSource);
+            // Ккомпиляция вершинного шейдера
+            int shaderVert = CreateShader(ShaderType.VertexShader, vertSource);
 
-            // Загрузка и компиляция фрагментного шейдера
-            shaderSource = File.ReadAllText(fragPath);
-            int shaderFrag = CreateShader(ShaderType.FragmentShader, shaderSource);
+            // Компиляция фрагментного шейдера
+            int shaderFrag = CreateShader(ShaderType.FragmentShader, fragSource);
 
             // Загрузка и компиляция геометрического шейдера (если указан)
             int shaderGeom = -1;
             if (geomPath != "")
             {
-                shaderSource = File.ReadAllText(geomPath);
-                shaderGeom = CreateShader(ShaderType.GeometryShader, shaderSource);
+                //shaderSource = File.ReadAllText(geomPath);
+                //shaderGeom = CreateShader(ShaderType.GeometryShader, shaderSource);
             }
 
             // Присоединение шейдеров к программе
@@ -270,6 +268,14 @@ namespace _3DEngine.Renderer
                 Use();
                 GL.UniformMatrix4(GetUniformLocation(name), 16, true, value.GetValues());
             }
+        }
+
+        public static Shader LoadFromFile(string vertPath, string fragPath)
+        {
+            var vertSource = File.ReadAllText(vertPath);
+            var fragSource = File.ReadAllText(fragPath);
+
+            return new Shader(vertSource, fragSource);
         }
 
         /// <summary>

@@ -11,12 +11,12 @@ namespace _3DEngine.Renderer.Buffers
         /// <summary>
         /// Ширина
         /// </summary>
-        public readonly int Width;
+        public int Width;
 
         /// <summary>
         /// Высота
         /// </summary>
-        public readonly int Height;
+        public int Height;
 
         public readonly int Samples;
 
@@ -349,6 +349,16 @@ namespace _3DEngine.Renderer.Buffers
             GL.ReadPixels(x, y, specification.Width, specification.Height, spec.PixelFormat, spec.PixelType, ref pixels);
 
             GL.BindFramebuffer(specification.Target, 0);
+        }
+
+        public void Resize(int width, int height)
+        {
+            specification.Width = width;
+            specification.Height = height;
+
+            textures.Clear();
+
+            Initialize();
         }
 
         /// <summary>

@@ -152,5 +152,8 @@ namespace _3DEngine.Core.Mathematics
         /// </summary>
         public static Vector4 operator /(Vector4 v, float value) =>
             new Vector4(v.X / value, v.Y / value, v.Z / value, v.W / value);
+
+        public static Vector4 operator -(Vector4 v) =>
+            new Vector4(-v.X, -v.Y, -v.Z, -v.W);
     }
 }
