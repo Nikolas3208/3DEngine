@@ -16,17 +16,17 @@ namespace _3DEngine.Renderer
         /// <summary>
         /// Позиция вершины
         /// </summary>
-        public Vector3 Position { get; }
+        public Vector3 Position { get; set; }
 
         /// <summary>
         /// Нормаль вершины
         /// </summary>
-        public Vector3 Normal { get; }
+        public Vector3 Normal { get; set; }
 
         /// <summary>
         /// Текстурные координаты вершины
         /// </summary>
-        public Vector2 TexCoord { get; }
+        public Vector2 TexCoord { get; set; }
 
         /// <summary>
         /// Вершина у которой указана только позиция
