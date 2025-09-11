@@ -36,7 +36,7 @@ namespace _3DEngine.Core.Mathematics
         /// <summary>
         /// Размер структуры Vector3 в байтах.
         /// </summary>
-        public static int Size => Marshal.SizeOf(typeof(Vector3));
+        public static int SizeInBytes => Marshal.SizeOf(typeof(Vector3));
 
         /// <summary>
         /// Координата X (горизонталь).

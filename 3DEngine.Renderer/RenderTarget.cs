@@ -5,7 +5,8 @@ namespace _3DEngine.Renderer
 {
     public interface RenderTarget
     {
-        public FrameBuffer FrameBuffer { get; }
+        Vector2i Size { get; }
+        FrameBuffer FrameBuffer { get; }
 
         void ClearColor(Color4 color);
 
@@ -14,5 +15,9 @@ namespace _3DEngine.Renderer
         void SetCamera(Camera camera);
 
         Camera GetCamera();
+
+        void Draw(IDrawable drawable);
+
+        void Draw(VertexArray vertexArray, RenderStates states);
     }
 }

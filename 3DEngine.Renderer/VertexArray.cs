@@ -78,11 +78,11 @@ namespace _3DEngine.Renderer
 
             // Атрибут 1: нормаль (3 float)
             GL.EnableVertexAttribArray(1);
-            GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, Vertex.Size, Vector3.Size);
+            GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, Vertex.Size, Vector3.SizeInBytes);
 
             // Атрибут 2: текстурные координаты (2 float)
             GL.EnableVertexAttribArray(2);
-            GL.VertexAttribPointer(2, 2, VertexAttribPointerType.Float, false, Vertex.Size, Vector3.Size * 2);
+            GL.VertexAttribPointer(2, 2, VertexAttribPointerType.Float, false, Vertex.Size, Vector3.SizeInBytes * 2);
 
             indexBuffer.Unbind();
             vertexBuffer.Unbind();

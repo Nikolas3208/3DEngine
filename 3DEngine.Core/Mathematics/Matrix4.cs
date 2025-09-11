@@ -1,7 +1,11 @@
-﻿namespace _3DEngine.Core.Mathematics
+﻿using System.Runtime.InteropServices;
+
+namespace _3DEngine.Core.Mathematics
 {
     public struct Matrix4
     {
+        public static int SizeInBytes => Marshal.SizeOf(typeof(Matrix4));
+
         public static Matrix4 Identity => new Matrix4(Vector4.UnitX, Vector4.UnitY, Vector4.UnitZ, Vector4.UnitW);
         public static Matrix4 Zero => new Matrix4(Vector4.Zero, Vector4.Zero, Vector4.Zero, Vector4.Zero);
 

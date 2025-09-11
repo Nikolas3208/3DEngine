@@ -1,4 +1,6 @@
-﻿namespace _3DEngine.Core.Mathematics
+﻿using System.Runtime.InteropServices;
+
+namespace _3DEngine.Core.Mathematics
 {
     /// <summary>
     /// Структура, представляющая цвет в формате RGBA с компонентами в виде чисел с плавающей точкой.
@@ -6,6 +8,8 @@
     /// </summary>
     public struct Color4
     {
+        public static int SizeInBytes => Marshal.SizeOf(typeof(Color4));
+
         /// <summary>
         /// Красная компонента цвета (R).
         /// </summary>
