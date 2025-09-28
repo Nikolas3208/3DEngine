@@ -2,7 +2,7 @@
 using OpenTK.Windowing.Desktop;
 
 
-namespace _3DEngine.Renderer
+namespace _3DEngine.Renderer.Windowing
 {
     /// <summary>
     /// Структура, описывающая режим видеовывода (разрешение экрана).

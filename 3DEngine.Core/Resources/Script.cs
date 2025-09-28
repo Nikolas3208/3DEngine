@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _3DEngine.Renderer
+namespace _3DEngine.Core.Resources
 {
-    public struct BlendMode
+    public class Script
     {
 
     }

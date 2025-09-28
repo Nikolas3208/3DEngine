@@ -1,7 +1,7 @@
 ﻿using _3DEngine.Core.Mathematics;
 using OpenTK.Graphics.OpenGL4;
 
-namespace _3DEngine.Renderer
+namespace _3DEngine.Renderer.Resources
 {
     /// <summary>
     /// Класс для работы с шейдерами в OpenGL.

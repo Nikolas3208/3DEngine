@@ -1,12 +1,15 @@
 ﻿using _3DEngine.Core;
 using _3DEngine.Core.Mathematics;
 using _3DEngine.Renderer.Buffers;
+using _3DEngine.Renderer.Resources;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using System.ComponentModel;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 
-namespace _3DEngine.Renderer
+namespace _3DEngine.Renderer.Windowing
 {
     public class RenderWindow : RenderTarget
     {
@@ -14,6 +17,7 @@ namespace _3DEngine.Renderer
         public event Action<float> Update;
         public event Action<RenderTarget> Render;
         public event Action<int, int> Resize;
+        public event Action Close;
 
         private Vertex[] screenVertices =
         {
@@ -41,6 +45,8 @@ namespace _3DEngine.Renderer
         private Camera camera { get; set; }
 
         public Vector2i Size { get => new Vector2i(videoMode.Width, videoMode.Height); }
+
+        public string Title { get => window.Title; set => window.Title = value; }
 
         public FrameBuffer FrameBuffer { get; }
 
@@ -127,7 +133,7 @@ namespace _3DEngine.Renderer
 
         private void OnClose(CancelEventArgs e)
         {
-
+            Close?.Invoke();
         }
 
         public void Run() => window.Run();
@@ -144,16 +150,6 @@ namespace _3DEngine.Renderer
         public void Clear()
         {
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-        }
-
-        public void Draw(IDrawable drawable)
-        {
-
-        }
-
-        public void Draw(VertexArray vertexArray, RenderStates states)
-        {
-
         }
     }
 }

@@ -1,11 +1,12 @@
 ﻿using _3DEngine.Core.Mathematics;
+using _3DEngine.Core.Resources;
 using OpenTK.Graphics.OpenGL4;
 
-namespace _3DEngine.Renderer
+namespace _3DEngine.Renderer.Resources
 {
-    public class Material
+    public class Material : Asset
     {
-        private Shader shader;
+        public Shader Shader;
 
         public Vector3 Ambient { get; set; }
         public Texture? AmbientTex {  get; set; }
@@ -20,9 +21,14 @@ namespace _3DEngine.Renderer
 
         public Texture? NormalTex {  get; set; }
 
+        public Material()
+        {
+            
+        }
+
         public Material(Shader shader, Vector3 ambient, Vector3 diffuse, Vector3 specular, float sheniness)
         {
-            this.shader = shader;
+            this.Shader = shader;
 
             Ambient = ambient;
             Diffuse = diffuse;
@@ -33,7 +39,7 @@ namespace _3DEngine.Renderer
 
         public Material(Shader shader, Texture ambient, Texture diffuse, Texture specular, float sheniness)
         {
-            this.shader = shader;
+            this.Shader = shader;
 
             AmbientTex = ambient;
             DiffuseTex = diffuse;
@@ -42,44 +48,61 @@ namespace _3DEngine.Renderer
             Shininess = sheniness;
         }
 
+        public Material(Shader shader, Vector3 ambient, Texture? ambientTex, Vector3 diffuse, Texture? diffuseTex, Vector3 specular, Texture? specularTex, float shininess, Texture? normalTex)
+        {
+            this.Shader = shader;
+            Ambient = ambient;
+            AmbientTex = ambientTex;
+            Diffuse = diffuse;
+            DiffuseTex = diffuseTex;
+            Specular = specular;
+            SpecularTex = specularTex;
+            Shininess = shininess;
+            NormalTex = normalTex;
+        }
+
+        public Material(MetaData metaData) : base(metaData)
+        {
+
+        }
+
         public void Bind()
         {
-            if (shader == null)
+            if (Shader == null)
                 return;
 
-            shader.SetVector3("material.ambient", Ambient);
-            shader.SetVector3("material.diffuse", Diffuse);
-            shader.SetVector3("material.specular", Specular);
+            Shader.Use();
+            Shader.SetVector3("material.ambient", Ambient);
+            Shader.SetVector3("material.diffuse", Diffuse);
+            Shader.SetVector3("material.specular", Specular);
 
-            shader.SetFloat("material.shininess", Shininess);
+            Shader.SetFloat("material.shininess", Shininess);
 
-            shader.SetBool("material.useAmbientTex", AmbientTex != null);
-            shader.SetBool("material.useDiffuseTex", DiffuseTex != null);
-            shader.SetBool("material.useSpecularTex", SpecularTex != null);
-            shader.SetBool("material.useNormalTex", NormalTex != null);
+            Shader.SetBool("material.useAmbientTex", AmbientTex != null);
+            Shader.SetBool("material.useDiffuseTex", DiffuseTex != null);
+            Shader.SetBool("material.useSpecularTex", SpecularTex != null);
+            Shader.SetBool("material.useNormalTex", NormalTex != null);
 
             if (AmbientTex != null)
             {
                 AmbientTex.Bind(TextureUnit.Texture0);
-                shader.SetInt("material.ambientTex", 0);
+                Shader.SetInt("material.ambientTex", 0);
             }
             if(DiffuseTex != null)
             {
                 DiffuseTex.Bind(TextureUnit.Texture1);
-                shader.SetInt("material.diffuseTex", 1);
+                Shader.SetInt("material.diffuseTex", 1);
             }
             if(SpecularTex != null)
             {
                 SpecularTex.Bind(TextureUnit.Texture2);
-                shader.SetInt("material.specularTex", 2);
+                Shader.SetInt("material.specularTex", 2);
             }
             if(NormalTex != null)
             {
                 NormalTex.Bind(TextureUnit.Texture3);
-                shader.SetInt("material.normalTex", 3);
+                Shader.SetInt("material.normalTex", 3);
             }
-
-            shader.Use();
         }
 
         public void Unbind()
